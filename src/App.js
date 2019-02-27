@@ -65,6 +65,18 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    const result = []
+    var temp
+    for(let i=0; i<this.state.search.length; i++){
+      temp = this.state.search[i];
+      temp.shelf = "none"
+      for(let j=0; j<this.state.books.length; j++){
+        if(this.state.search[i].id === this.state.books[j].id){
+          temp = this.state.books[j];
+        }
+      }
+      result.push(temp)
+    }
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -88,7 +100,8 @@ class BooksApp extends React.Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-                {this.state.search.map ( book => (    
+                {result.map ( book => (
+                     
                     <Book key={book.id} state={this.state} book={book} update={this.update}></Book>
                 )
                 )}
