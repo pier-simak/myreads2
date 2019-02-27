@@ -1,7 +1,7 @@
 import React from 'react'
 import Book from './Book'
 import './App.css'
-
+import {BrowserRouter, Link} from 'react-router-dom'
 class BookShelves extends React.Component {
     render(){
 
@@ -21,6 +21,9 @@ class BookShelves extends React.Component {
             <div className="list-books">
                 <div className="list-books-title">
                 <h1>MyReads</h1>
+                <BrowserRouter>
+                <Link to="/search" onClick={() => this.props.state.main.onClickSearch()}>Search</Link>
+            </BrowserRouter>
                 </div>
                 <div className="list-books-content">
                 <div>

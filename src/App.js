@@ -3,6 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import BookShelves from './BookShelves'
 import Book from './Book'
+import {BrowserRouter, Link} from 'react-router-dom'
 class BooksApp extends React.Component {
   state = {
     /**
@@ -18,7 +19,12 @@ class BooksApp extends React.Component {
   }
 
   onClickSearch = () => {
-    this.setState({ showSearchPage: true })
+    if(this.state.showSearchPage === true){
+      this.setState({ showSearchPage: false })
+    }else{
+      this.setState({ showSearchPage: true })
+    }
+    
   }
   getData = () => {
     BooksAPI.getAll().then(data => {
@@ -75,7 +81,9 @@ class BooksApp extends React.Component {
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
                 <input type="text" onChange={this.onChange.bind(this)} placeholder="Search by title or author"/>
-
+                <BrowserRouter>
+                  <Link to="/" onClick={() => this.setState({ showSearchPage: false })}>Home</Link>
+                </BrowserRouter>
               </div>
             </div>
             <div className="search-books-results">
@@ -88,8 +96,10 @@ class BooksApp extends React.Component {
             </div>
           </div>
         ) : (
+          <div>
+            
           <BookShelves state={this.state} update={this.update}></BookShelves>
-          
+          </div>
         )}
       </div>
     )
